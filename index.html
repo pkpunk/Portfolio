@@ -2200,9 +2200,7 @@
     });
 
     // Form submit
-    // Initialize EmailJS
-    emailjs.init("4ggGovfrvzgkUBttQ");
-
+    emailjs.init("7SG3vfjyDdX8DHW9J");
     function handleSubmit(btn) {
       // Get form values
       const name = document.querySelector(".form-input[placeholder='John Doe']").value;
@@ -2227,7 +2225,7 @@
         message: message
       };
 
-      emailjs.send("service_xogm0yk", "template_n4xz2oe", templateParams)
+      emailjs.send("service_sd3a5p9", "template_rpv8dek", templateParams)
         .then(() => {
           btn.textContent = "✓ Message Sent!";
           btn.style.background = "linear-gradient(135deg, #48cae4, #c77dff)";
