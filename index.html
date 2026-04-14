@@ -1821,7 +1821,7 @@
           <div class="timeline-dot" style="background:var(--accent1);box-shadow:0 0 0 2px var(--accent1);"></div>
           <div class="timeline-card">
             <div class="timeline-period">2025 – Present</div>
-            <div class="timeline-role">Framer Expert</div>
+            <div class="timeline-role"> Frontend Developer</div>
             <div class="timeline-company">Responsive Pixels</div>
             <p class="timeline-desc">Building modern, animation-rich websites using Framer. Creating interactive design
               systems, smooth transitions, and high-performance landing pages for international clients. Leading
@@ -2161,7 +2161,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">PT.</div>
-    <div class="footer-copy">© 2025 Pradip Thagunna. Built with ❤️ in Nepal.</div>
+    <div class="footer-copy">© 2025 Pradip Thagunna. Built with ❤️.</div>
     <div class="footer-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
@@ -2200,18 +2200,55 @@
     });
 
     // Form submit
+    // Initialize EmailJS
+    emailjs.init("4ggGovfrvzgkUBttQ");
+
     function handleSubmit(btn) {
-      btn.textContent = 'Sending...';
-      btn.style.opacity = '0.7';
-      setTimeout(() => {
-        btn.textContent = '✓ Message Sent!';
-        btn.style.background = 'linear-gradient(135deg, #48cae4, #c77dff)';
-        setTimeout(() => {
-          btn.textContent = 'Send Message ✦';
-          btn.style.background = '';
-          btn.style.opacity = '';
-        }, 3000);
-      }, 1500);
+      // Get form values
+      const name = document.querySelector(".form-input[placeholder='John Doe']").value;
+      const email = document.querySelector(".form-input[placeholder='john@example.com']").value;
+      const subject = document.querySelector(".form-input[placeholder='Project inquiry...']").value;
+      const message = document.querySelector(".form-textarea").value;
+
+      // Basic validation (optional but recommended)
+      if (!name || !email || !subject || !message) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      // UI loading state
+      btn.textContent = "Sending...";
+      btn.style.opacity = "0.7";
+
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        subject: subject,
+        message: message
+      };
+
+      emailjs.send("service_xogm0yk", "template_n4xz2oe", templateParams)
+        .then(() => {
+          btn.textContent = "✓ Message Sent!";
+          btn.style.background = "linear-gradient(135deg, #48cae4, #c77dff)";
+
+          // Reset form UI after success
+          setTimeout(() => {
+            btn.textContent = "Send Message ✦";
+            btn.style.background = "";
+            btn.style.opacity = "";
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          btn.textContent = "Failed to Send ❌";
+          btn.style.opacity = "1";
+
+          setTimeout(() => {
+            btn.textContent = "Send Message ✦";
+            btn.style.background = "";
+          }, 3000);
+        });
     }
 
     // Animate skill bars when first visible
